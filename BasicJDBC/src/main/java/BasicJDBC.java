@@ -16,17 +16,25 @@ public class BasicJDBC {
         String url = "jdbc:mysql://127.0.0.1:3306/leasing";
         String userName = "root";
         String password = "abc";
-        String query = "select name from user where id = 13";
+        String query = "select * from user where id = 13";
+        String insertQuery = "INSERT INTO `user` ( `email_id`, `name`, `role_id`, `city_id`, `is_deleted`, `is_internal_user`, `created_at`, `updated_at`, `updated_by`) VALUES ('kirankumarn2208@gmail.com', 'Kiran Kumar N', 2, 0, 0, 0, now(), now(),null)";
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection connection = DriverManager.getConnection(url,userName,password);
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(query);
 
-        resultSet.next();
+        resultSet.next(); // Move pointer to name data in result set
         String name = resultSet.getString("name");
 
         System.out.println(name);
+        //testuser1
+
+        int resultRows = statement.executeUpdate(insertQuery);
+        System.out.println("number of rows affected : " + resultRows);
+
+        //testuser1
+        //number of rows affected : 1
 
         statement.close();
         connection.close();
